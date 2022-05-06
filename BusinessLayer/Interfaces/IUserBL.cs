@@ -9,5 +9,6 @@ namespace BusinessLayer.Interfaces
     {
         public void AddUser(UserPostModel user);
         public string LoginUser(string Email, string Password);
+        public bool ForgotPassword(string email);
     }
 }
