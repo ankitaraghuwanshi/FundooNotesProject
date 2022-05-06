@@ -13,7 +13,7 @@ namespace BusinessLayer.Services
         IUserRL userRL;
         public UserBL(IUserRL userRL)
         {
-            this.userRL = userRL; 
+            this.userRL = userRL;
         }
         public void AddUser(UserPostModel user)
         {
@@ -26,6 +26,17 @@ namespace BusinessLayer.Services
             {
 
                 throw;
+            }
+        }
+        public string LoginUser(string email, string password)
+        {
+            try
+            {
+                return this.userRL.LoginUser(email, password);
+            }
+            catch (Exception ex)
+            {
+                throw ex;
             }
         }
     }

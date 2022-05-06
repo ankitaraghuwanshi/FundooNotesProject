@@ -2,10 +2,11 @@
 using CommonLayer.Users;
 using Microsoft.AspNetCore.Mvc;
 using RepositoryLayer.FundooContext;
+using System;
 
 namespace FundooNotes.Controllers
 {
-   
+
     [ApiController]
     [Route("[controller]")]
     public class UserController : ControllerBase
@@ -19,7 +20,7 @@ namespace FundooNotes.Controllers
         }
         [HttpPost]
 
-        public IActionResult AddUser(UserPostModel user )
+        public IActionResult AddUser(UserPostModel user)
         {
             try
             {
@@ -32,6 +33,26 @@ namespace FundooNotes.Controllers
             catch (System.Exception)
             {
 
+                throw;
+            }
+        }
+        [HttpPost("login")]
+        public ActionResult LoginUser(string email, string password)
+        {
+            try
+            {
+
+                string token = this.userBL.LoginUser(email, password);
+                if (token == null)
+                {
+                    return this.BadRequest(new { success = false, message = $"Email or Password is invalid" });
+                }
+                return this.Ok(new { success = true, message = $"Token Generated is" + token });
+
+
+            }
+            catch (Exception)
+            {
                 throw;
             }
         }
