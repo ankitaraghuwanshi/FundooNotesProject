@@ -15,13 +15,26 @@ namespace RepositoryLayer.Services
                 client.EnableSsl = true;
                 client.DeliveryMethod = SmtpDeliveryMethod.Network;
                 client.UseDefaultCredentials = true;
-                client.Credentials = new NetworkCredential("palkumarraghu8989@gmail.com", "palkumakr89$");
+                client.Credentials = new NetworkCredential("testaanki@gmail.com", "palkumakr89$");
 
                 MailMessage msgObj = new MailMessage();
                 msgObj.To.Add(email);
-                msgObj.From = new MailAddress("palkumarraghu8989@gmail.com");
+                msgObj.From = new MailAddress("testaanki@gmail.com");
                 msgObj.Subject = "Password Reset Link";
-                msgObj.Body = $"www.fundooNotes.com/reset-password/{token}";
+                msgObj.IsBodyHtml = true;
+                msgObj.Body = $"<!DOCTYPE html>"
+                    + "<html>"
+                    + "<body style=\"background-color:white;text-align:left;\">" +
+                     "<h1 style=\"color:grey;\"> Hello User</h1>" +
+                     "<h2 style=\"color:grey;font-size:70%\">click on the below link to recover Password</h2>" +
+                     "</body>" + 
+                     $"www.fundooNotes.com/reset-password/{token}" +
+                     "<body style=\"background-color:white;font-size:50%;text-align:left;\">" +
+                     "<h1 style=\"color:grey;\">Regards fundoonotes</h1>" +
+                     
+                    "</html>";
+
+                
                 client.Send(msgObj);
             }
         }

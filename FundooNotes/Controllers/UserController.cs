@@ -1,8 +1,12 @@
 ﻿using BusinessLayer.Interfaces;
+using CommonLayer;
 using CommonLayer.Users;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using RepositoryLayer.FundooContext;
 using System;
+using System.Linq;
+using System.Security.Claims;
 
 namespace FundooNotes.Controllers
 {
@@ -18,7 +22,7 @@ namespace FundooNotes.Controllers
             this.fundoosContext = fundoos;
             this.userBL = userBL;
         }
-        [HttpPost]
+        [HttpPost("register")]
 
         public IActionResult AddUser(UserPostModel user)
         {
@@ -30,14 +34,14 @@ namespace FundooNotes.Controllers
 
 
             }
-            catch (System.Exception)
+            catch (Exception ex)
             {
 
-                throw;
+                throw ex;
             }
         }
-        [HttpPost("login")]
-        public IActionResult LoginUser(string email, string password)
+        [HttpPost("login/{email}/{password}")]
+        public ActionResult LoginUser(string email, string password)
         {
             try
             {
@@ -51,13 +55,13 @@ namespace FundooNotes.Controllers
 
 
             }
-            catch (Exception)
+            catch (Exception ex)
             {
-                throw;
+                throw ex;
             }
         }
-        [HttpPost("ForgotPassword")]
-        public IActionResult ForgotPassword(string Email)
+        [HttpPost("ForgotPassword/{Email}")]
+        public ActionResult ForgotPassword(string Email)
         {
             try
             {
@@ -72,5 +76,35 @@ namespace FundooNotes.Controllers
             }
         }
 
+        [Authorize]
+        [HttpPut("ChangePassword")]
+
+        public IActionResult ChangePassword(ChangePasswordModel changePassword)
+        {
+            try
+            {
+                string email = User.FindFirst(ClaimTypes.Email).Value.ToString();
+
+                bool result = userBL.ChangePassword(changePassword, email);
+                if (result == false)
+                {
+
+                    return this.BadRequest(new { success = false, message = "password not changed sucessfully" });
+                }
+                return this.Ok(new { success = true, message = "password changed succesfully" });
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+
+            }
+        }
     }
 }
+
+        
+
+
+
+    
+

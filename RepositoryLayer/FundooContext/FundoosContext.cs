@@ -13,5 +13,13 @@ namespace RepositoryLayer.FundooContext
 
         }
         public DbSet<User> User { get; set; }
+        public DbSet<Note> Notes { get; set; }
+
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            modelBuilder.Entity<User>()
+            .HasIndex(u => u.email)
+            .IsUnique();
+        }
     }
 }
