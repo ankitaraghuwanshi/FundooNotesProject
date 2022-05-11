@@ -36,7 +36,7 @@ namespace RepositoryLayer.Migrations
                     Ispin = table.Column<bool>(type: "bit", nullable: false),
                     IsArchieve = table.Column<bool>(type: "bit", nullable: false),
                     IsRemainder = table.Column<bool>(type: "bit", nullable: false),
-                    IsTrash = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    IsTrash = table.Column<bool>(type: "bit", nullable: false),
                     RegisterDate = table.Column<DateTime>(type: "datetime2", nullable: false),
                     ModifyDate = table.Column<DateTime>(type: "datetime2", nullable: false),
                     RemainderDate = table.Column<DateTime>(type: "datetime2", nullable: false),

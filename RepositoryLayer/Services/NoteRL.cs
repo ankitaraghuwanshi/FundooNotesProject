@@ -1,4 +1,5 @@
 ﻿using CommonLayer;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using RepositoryLayer.Entities;
 using RepositoryLayer.FundooContext;
@@ -90,6 +91,36 @@ namespace RepositoryLayer.Services
                 throw ex;
             }
 
+        }
+
+        public async Task<Note> UpdateNote(int userId, int noteId, NoteUpdateModel noteUpdateModel)
+        {
+            try
+            {
+                var note = fundoosContext.Notes.FirstOrDefault(e => e.userId == userId && e.NoteId == noteId);
+                if (note != null)
+                {
+                    note.Title = noteUpdateModel.Title;
+                    note.Description = noteUpdateModel.Description;
+                    note.IsArchieve = noteUpdateModel.IsArchieve;
+                    note.Colour = noteUpdateModel.Colour;
+                    note.Ispin = noteUpdateModel.Ispin;
+                    note.IsTrash = noteUpdateModel.IsTrash;
+                    note.IsRemainder = noteUpdateModel.IsRemainder;
+
+                    await fundoosContext.SaveChangesAsync();
+
+                }
+                return await fundoosContext.Notes
+                .Where(u => u.userId == u.userId && u.NoteId == noteId)
+                .Include(u => u.User)
+                .FirstOrDefaultAsync();
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
         }
     }
 }        

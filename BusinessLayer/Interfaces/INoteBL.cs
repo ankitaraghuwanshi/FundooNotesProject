@@ -1,4 +1,5 @@
 ﻿using CommonLayer;
+using RepositoryLayer.Entities;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -11,6 +12,7 @@ namespace BusinessLayer.Interfaces
         Task AddNote(int userId, NotePostModel notePostModel);
         Task ChangeColour(int userId, int NoteId, string colour);
         Task ArchiveNote(int userId, int noteId);
+        Task<Note> UpdateNote(int userId, int noteId, NoteUpdateModel noteUpdateModel);
 
 
     }

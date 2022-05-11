@@ -1,5 +1,6 @@
 ﻿using BusinessLayer.Interfaces;
 using CommonLayer;
+using RepositoryLayer.Entities;
 using RepositoryLayer.Interfaces;
 using System;
 using System.Collections.Generic;
@@ -48,6 +49,19 @@ namespace BusinessLayer.Services
             {
                 await noteRL.ChangeColour(userId, NoteId, colour);
 
+            }
+            catch (Exception ex)
+            {
+
+                throw ex;
+            }
+        }
+
+        public async Task<Note> UpdateNote(int userId, int noteId, NoteUpdateModel noteUpdateModel)
+        {
+            try
+            {
+                return await this.noteRL.UpdateNote(userId, noteId, noteUpdateModel);
             }
             catch (Exception ex)
             {

@@ -10,7 +10,7 @@ using RepositoryLayer.FundooContext;
 namespace RepositoryLayer.Migrations
 {
     [DbContext(typeof(FundoosContext))]
-    [Migration("20220511072854_Note")]
+    [Migration("20220511134403_Note")]
     partial class Note
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -40,8 +40,8 @@ namespace RepositoryLayer.Migrations
                     b.Property<bool>("IsRemainder")
                         .HasColumnType("bit");
 
-                    b.Property<string>("IsTrash")
-                        .HasColumnType("nvarchar(max)");
+                    b.Property<bool>("IsTrash")
+                        .HasColumnType("bit");
 
                     b.Property<bool>("Ispin")
                         .HasColumnType("bit");

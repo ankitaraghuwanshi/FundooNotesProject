@@ -86,8 +86,30 @@ namespace FundooNotes.Controllers
             }
         }
 
-    }
-}
+        [Authorize]
+        [HttpPut("Update/{noteId}")]
+        public async Task<ActionResult> UpdateNote(int noteId, NoteUpdateModel noteUpdateModel)
+        {
+            try
+            {
+                var userid = User.Claims.FirstOrDefault(x => x.Type.ToString().Equals("userID", StringComparison.InvariantCultureIgnoreCase));
+                int UserId = Int32.Parse(userid.Value);
 
-       
+                var note = fundoosContext.Notes.FirstOrDefault(e => e.userId == UserId && e.NoteId == noteId);
+                if (note == null)
+                {
+                    return this.BadRequest(new { success = false, message = "Failed to Update note" });
+                }
+                await this.noteBL.UpdateNote(UserId, noteId, noteUpdateModel);
+                return this.Ok(new { success = true, message = "Note Updated successfully" });
+            }
+            catch (Exception ex)
+            {
+
+                throw ex;
+            }
+        }
+    }
+
+}      
 

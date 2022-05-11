@@ -1,24 +1,25 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Text;
 
-namespace RepositoryLayer.Entities
+namespace CommonLayer
 {
-    public class Note
+    public class NoteUpdateModel
     {
-        public int NoteId { get; set; }
+        [Required]
         public string Title { get; set; }
+
+        [Required]
         public string Description { get; set; }
+
+        [Required]
         public string Colour { get; set; }
         public bool Ispin { get; set; }
         public bool IsArchieve { get; set; }
         public bool IsRemainder { get; set; }
         public bool IsTrash { get; set; }
-        public DateTime RegisterDate { get; set; }
-        public DateTime ModifyDate { get; set; }
-        public DateTime RemainderDate { get; set; }
-        public int userId { get; set; }
-        public virtual User User { get; set; }
+
 
     }
 }

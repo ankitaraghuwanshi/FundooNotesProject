@@ -38,8 +38,8 @@ namespace RepositoryLayer.Migrations
                     b.Property<bool>("IsRemainder")
                         .HasColumnType("bit");
 
-                    b.Property<string>("IsTrash")
-                        .HasColumnType("nvarchar(max)");
+                    b.Property<bool>("IsTrash")
+                        .HasColumnType("bit");
 
                     b.Property<bool>("Ispin")
                         .HasColumnType("bit");
