@@ -13,10 +13,6 @@ namespace FundooNotes.Controllers
     [Route("[controller]")]
     public class NoteController : ControllerBase
     {
-        
-
-        
-
         FundoosContext fundoosContext;
         INoteBL noteBL;
         public NoteController(FundoosContext fundoosContext, INoteBL noteBL)
@@ -33,12 +29,35 @@ namespace FundooNotes.Controllers
                 var userid = User.Claims.FirstOrDefault(x => x.Type.ToString().Equals("UserId", StringComparison.InvariantCultureIgnoreCase));
                 int UserId = Int32.Parse(userid.Value);
 
-                await this.noteBL.AddNote(UserId,notePostModel);
+                await this.noteBL.AddNote(UserId, notePostModel);
                 return this.Ok(new { success = true, message = "Note Added Successfully " });
             }
             catch (Exception ex)
             {
 
+                throw ex;
+            }
+        }
+
+        [Authorize]
+        [HttpPut("ArchieveNote/{noteId}")]
+        public async Task<ActionResult> IsArchieveNote(int noteId)
+        {
+            try
+            {
+                var userid = User.Claims.FirstOrDefault(x => x.Type.ToString().Equals("userID", StringComparison.InvariantCultureIgnoreCase));
+                int userId = Int32.Parse(userid.Value);
+
+                var note = fundoosContext.Notes.FirstOrDefault(e => e.userId == userId && e.NoteId == noteId);
+                if (note == null)
+                {
+                    return this.BadRequest(new { success = false, message = "Failed to archieve note" });
+                }
+                await this.noteBL.ArchiveNote(userId, noteId);
+                return this.Ok(new { success = true, message = "Note Archieved successfully" });
+            }
+            catch (Exception ex)
+            {
                 throw ex;
             }
         }
@@ -56,7 +75,7 @@ namespace FundooNotes.Controllers
                 {
                     return this.BadRequest(new { success = false, message = "SOORY! Note does nor Exist" });
                 }
-                await this.noteBL.ChangeColour( UserId,noteId,colour);
+                await this.noteBL.ChangeColour(UserId, noteId, colour);
                 return this.Ok(new { success = true, message = "Note Colour Changed Successfully " });
 
             }
@@ -66,5 +85,9 @@ namespace FundooNotes.Controllers
                 throw ex;
             }
         }
-    }     
+
+    }
 }
+
+       
+

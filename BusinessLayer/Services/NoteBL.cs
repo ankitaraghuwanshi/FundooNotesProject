@@ -28,6 +28,20 @@ namespace BusinessLayer.Services
             }
         }
 
+        public async Task ArchiveNote(int userId, int noteId)
+        {
+            try
+            {
+                await noteRL.ArchiveNote(userId, noteId);
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+
+        }
+
         public async Task ChangeColour(int userId, int NoteId, string colour)
         {
             try

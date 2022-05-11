@@ -49,10 +49,10 @@ namespace RepositoryLayer.Services
         {
             try
             {
-                var note= fundoosContext.Notes.FirstOrDefault(e => e.userId == userId && e.NoteId == NoteId);//mathcing
-                if(note != null)
+                var note = fundoosContext.Notes.FirstOrDefault(e => e.userId == userId && e.NoteId == NoteId);//mathcing
+                if (note != null)
                 {
-                    note.Colour=colour;
+                    note.Colour = colour;
                     await fundoosContext.SaveChangesAsync();
                 }
             }
@@ -63,10 +63,39 @@ namespace RepositoryLayer.Services
             }
         }
 
+        public async Task ArchiveNote(int userId, int noteId)
+        {
+            try
+            {
+                var note = fundoosContext.Notes.FirstOrDefault(e => e.userId == userId && e.NoteId == noteId);
+                if (note != null)
+                {
+                    if (note.IsArchieve == true)
+                    {
+                        note.IsArchieve = false;
+                    }
+
+                    if (note.IsArchieve == false)
+                    {
+                        note.IsArchieve = true;
+                    }
+                }
+
+                await fundoosContext.SaveChangesAsync();
+
+            }
+            catch (Exception ex)
+            {
+
+                throw ex;
+            }
+
+        }
     }
+}        
 
 
-}
+
 
     
 

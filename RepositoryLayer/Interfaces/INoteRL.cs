@@ -12,6 +12,8 @@ namespace RepositoryLayer.Interfaces
         
         Task ChangeColour(int userId, int NoteId,string colour);
 
+        Task ArchiveNote(int userId,int noteId);
+
 
     }
 }
