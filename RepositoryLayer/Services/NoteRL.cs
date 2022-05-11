@@ -5,6 +5,7 @@ using RepositoryLayer.FundooContext;
 using RepositoryLayer.Interfaces;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -25,7 +26,7 @@ namespace RepositoryLayer.Services
             try
             {
                 Note note = new Note();
-                note.userId=userId;
+                note.userId = userId;
                 note.Title = notePostModel.Title;
                 note.Description = notePostModel.Description;
                 note.Colour = notePostModel.Colour;
@@ -42,12 +43,30 @@ namespace RepositoryLayer.Services
 
                 throw ex;
             }
-
-
-
-
-
-
         }
+        //method for changing colour of note
+        public async Task ChangeColour(int userId, int NoteId, string colour)
+        {
+            try
+            {
+                var note= fundoosContext.Notes.FirstOrDefault(e => e.userId == userId && e.NoteId == NoteId);//mathcing
+                if(note != null)
+                {
+                    note.Colour=colour;
+                    await fundoosContext.SaveChangesAsync();
+                }
+            }
+            catch (Exception ex)
+            {
+
+                throw ex;
+            }
+        }
+
     }
+
+
 }
+
+    
+

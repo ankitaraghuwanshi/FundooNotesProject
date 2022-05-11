@@ -28,6 +28,19 @@ namespace BusinessLayer.Services
             }
         }
 
+        public async Task ChangeColour(int userId, int NoteId, string colour)
+        {
+            try
+            {
+                await noteRL.ChangeColour(userId, NoteId, colour);
+
+            }
+            catch (Exception ex)
+            {
+
+                throw ex;
+            }
+        }
     }
     
 }
