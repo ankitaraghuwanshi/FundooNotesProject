@@ -10,15 +10,15 @@ namespace RepositoryLayer.Entities
         public string Title { get; set; }
         public string Description { get; set; }
         public string Colour { get; set; }
-        public string Ispin { get; set; }
-        public string IsArchieve { get; set; }
-        public string IsRemainder { get; set; }
+        public bool Ispin { get; set; }
+        public bool IsArchieve { get; set; }
+        public bool IsRemainder { get; set; }
         public string IsTrash { get; set; }
         public DateTime RegisterDate { get; set; }
         public DateTime ModifyDate { get; set; }
         public DateTime RemainderDate { get; set; }
-        public int Id { get; set; }
-       public virtual User User { get; set; }
+        public int userId { get; set; }
+        public virtual User User { get; set; }
 
     }
 }

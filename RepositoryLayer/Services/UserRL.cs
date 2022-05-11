@@ -51,7 +51,7 @@ namespace RepositoryLayer.Services
         {
             try
             {
-               // var user = new User();
+               
                 var AllRecords = fundoosContext.User.ToList();
                 var existingRecord = AllRecords.Where(x => x.email == email).FirstOrDefault();
 
@@ -65,7 +65,7 @@ namespace RepositoryLayer.Services
                     }
                     else
                     {
-                        return GenerateJWTToken(existingRecord.email, existingRecord.Id);
+                        return GenerateJWTToken(existingRecord.email, existingRecord.userId);
                     }
                 }
                 else
@@ -80,29 +80,7 @@ namespace RepositoryLayer.Services
 
         }
 
-        //public string LoginUser(string email, string password)
-        //{
-        //    try
-        //    {
-
-        //        string encodedPassword = EncodePasswordToBase64(password);
-        //        var user = fundoosContext.User.FirstOrDefault(u => u.email == email && u.password == encodedPassword);
-
-        //        if (user == null)
-        //        {
-        //            return null;
-
-        //        }
-        //        return GenerateJWTToken(email, user.Id);
-
-        //    }
-        //    catch (Exception ex)
-        //    {
-
-        //        throw ex;
-        //    }
-
-        //}
+        
         private string GenerateJWTToken(string email, int userId)
         {
             //generate token
@@ -142,7 +120,7 @@ namespace RepositoryLayer.Services
 
                 Message message = new Message();
                 message.Formatter = new BinaryMessageFormatter();
-                message.Body = GenerateJWTToken(email, user.Id);
+                message.Body = GenerateJWTToken(email, user.userId);
                 EmailService.SendMail(email, message.Body.ToString());
                 FundooQ.ReceiveCompleted += new ReceiveCompletedEventHandler(msmqQueue_ReceiveCompleted);
 
