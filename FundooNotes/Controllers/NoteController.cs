@@ -87,6 +87,29 @@ namespace FundooNotes.Controllers
         }
 
         [Authorize]
+        [HttpDelete("Delete/{noteId}")]
+        public async Task<ActionResult> DeleteNote(int noteId)
+        {
+            try
+            {
+                var userid = User.Claims.FirstOrDefault(x => x.Type.ToString().Equals("userID", StringComparison.InvariantCultureIgnoreCase));
+                int UserId = Int32.Parse(userid.Value);
+                var note = fundoosContext.Notes.FirstOrDefault(e => e.userId == UserId && e.NoteId == noteId);
+                if (note == null)
+                {
+                    return this.BadRequest(new { success = false, message = "Deletion Failed" });
+                }
+                await this.noteBL.DeleteNote(noteId, UserId);
+                return this.Ok(new { success = true, message = "Note Deleted Successfully" });
+            }
+            catch (Exception ex)
+            {
+
+                throw ex;
+            }
+        }
+
+        [Authorize]
         [HttpPut("Update/{noteId}")]
         public async Task<ActionResult> UpdateNote(int noteId, NoteUpdateModel noteUpdateModel)
         {

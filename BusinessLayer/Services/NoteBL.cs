@@ -57,6 +57,20 @@ namespace BusinessLayer.Services
             }
         }
 
+        public async Task DeleteNote(int noteId, int userId)
+        {
+            try
+            {
+                await noteRL.DeleteNote(noteId, userId);
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+
+        }
+
         public async Task<Note> UpdateNote(int userId, int noteId, NoteUpdateModel noteUpdateModel)
         {
             try

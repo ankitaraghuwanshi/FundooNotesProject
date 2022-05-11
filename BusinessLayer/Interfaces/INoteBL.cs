@@ -13,7 +13,8 @@ namespace BusinessLayer.Interfaces
         Task ChangeColour(int userId, int NoteId, string colour);
         Task ArchiveNote(int userId, int noteId);
         Task<Note> UpdateNote(int userId, int noteId, NoteUpdateModel noteUpdateModel);
-
-
+        Task DeleteNote(int noteId, int userId);
     }
 }
+    
+

@@ -122,6 +122,22 @@ namespace RepositoryLayer.Services
                 throw;
             }
         }
+
+        public async Task DeleteNote(int noteId, int userId)
+        {
+            try
+            {
+                var note = fundoosContext.Notes.FirstOrDefault(u => u.NoteId == noteId && u.userId == userId);
+                fundoosContext.Notes.Remove(note);
+                await fundoosContext.SaveChangesAsync();
+            }
+            catch (Exception ex)
+            {
+
+                throw ex;
+            }
+
+        }
     }
 }        
 
