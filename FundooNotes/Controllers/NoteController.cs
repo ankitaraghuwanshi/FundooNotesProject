@@ -2,8 +2,10 @@
 using CommonLayer;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using RepositoryLayer.Entities;
 using RepositoryLayer.FundooContext;
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -194,6 +196,23 @@ namespace FundooNotes.Controllers
                 }
                 await this.noteBL.Reminder(userId, noteId, Reminderdate);
                 return this.Ok(new { success = true, message = "Reminder date set successfully" });
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+        [Authorize]
+        [HttpGet("GetAllNotes")]
+        public async Task<ActionResult> GetAllNotes()
+        {
+            try
+            {
+                var userid = User.Claims.FirstOrDefault(x => x.Type.ToString().Equals("userID", StringComparison.InvariantCultureIgnoreCase));
+                int userId = Int32.Parse(userid.Value);
+                List<Note> result = new List<Note>();
+                result = await this.noteBL.GetAllNote(userId);
+                return this.Ok(new { success = true, message = $"here is your all notes", data = result });
             }
             catch (Exception ex)
             {

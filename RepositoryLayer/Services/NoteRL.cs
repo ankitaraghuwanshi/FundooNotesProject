@@ -204,7 +204,7 @@ namespace RepositoryLayer.Services
                 {
                     if (note.IsRemainder == true)
                     {
-                        
+
                         note.IsRemainder = false;
                     }
                     if (note.IsRemainder == false)
@@ -223,8 +223,23 @@ namespace RepositoryLayer.Services
                 throw ex;
             }
         }
+
+        public async Task<List<Note>> GetAllNote(int userId)
+        {
+            try
+            {
+                return await fundoosContext.Notes.Where(u => u.userId == userId).Include(u => u.User).ToListAsync();
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
     }
 }
+        
+    
+
 
 
         

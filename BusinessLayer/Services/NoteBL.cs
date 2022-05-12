@@ -71,6 +71,17 @@ namespace BusinessLayer.Services
 
         }
 
+        public Task<List<Note>> GetAllNote(int userId)
+        {
+            try
+            {
+                return this.noteRL.GetAllNote(userId);
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
         public async Task PinNote(int userId, int noteId)
         {
             try
