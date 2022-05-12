@@ -138,6 +138,63 @@ namespace RepositoryLayer.Services
             }
 
         }
+
+        public async Task PinNote(int userId, int noteId)
+        {
+            try
+            {
+                var note = fundoosContext.Notes.FirstOrDefault(e => e.userId == userId && e.NoteId == noteId);
+                if (note != null)
+                {
+                    if (note.Ispin == true)
+                    {
+                        note.Ispin = false;
+                    }
+
+                    if (note.Ispin == false)
+                    {
+                        note.Ispin = true;
+                    }
+                }
+
+                await fundoosContext.SaveChangesAsync();
+
+            }
+            catch (Exception ex)
+            {
+
+                throw ex;
+            }
+        }
+
+        public async Task TrashNote(int userId, int noteId)
+        {
+            try
+            {
+                var note = fundoosContext.Notes.FirstOrDefault(e => e.userId == userId && e.NoteId == noteId);
+                if (note != null)
+                {
+                    if (note.IsTrash == true)
+                    {
+                        note.IsTrash = false;
+                    }
+
+                    if (note.IsTrash == false)
+                    {
+                        note.IsTrash = true;
+                    }
+                }
+
+                await fundoosContext.SaveChangesAsync();
+
+            }
+            catch (Exception ex)
+            {
+
+                throw ex;
+            }
+
+        }
     }
 }        
 

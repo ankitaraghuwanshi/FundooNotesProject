@@ -132,7 +132,52 @@ namespace FundooNotes.Controllers
                 throw ex;
             }
         }
-    }
 
+        [Authorize]
+        [HttpPut("PinNote/{noteId}")]
+        public async Task<ActionResult> IsPinNote(int noteId)
+        {
+            try
+            {
+                var userid = User.Claims.FirstOrDefault(x => x.Type.ToString().Equals("userID", StringComparison.InvariantCultureIgnoreCase));
+                int userId = Int32.Parse(userid.Value);
+
+                var note = fundoosContext.Notes.FirstOrDefault(e => e.userId == userId && e.NoteId == noteId);
+                if (note == null)
+                {
+                    return this.BadRequest(new { success = false, message = "Failed to Pin note" });
+                }
+                await this.noteBL.ArchiveNote(userId, noteId);
+                return this.Ok(new { success = true, message = "Note Pinned successfully" });
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+
+        [Authorize]
+        [HttpPut("TrashNote/{noteId}")]
+        public async Task<ActionResult> IsTrashNote(int noteId)
+        {
+            try
+            {
+                var userid = User.Claims.FirstOrDefault(x => x.Type.ToString().Equals("userID", StringComparison.InvariantCultureIgnoreCase));
+                int userId = Int32.Parse(userid.Value);
+
+                var note = fundoosContext.Notes.FirstOrDefault(e => e.userId == userId && e.NoteId == noteId);
+                if (note == null)
+                {
+                    return this.BadRequest(new { success = false, message = "Failed to Trash note" });
+                }
+                await this.noteBL.ArchiveNote(userId, noteId);
+                return this.Ok(new { success = true, message = "Note Trash successfully" });
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+    }
 }      
 

@@ -12,6 +12,8 @@ namespace BusinessLayer.Interfaces
         Task AddNote(int userId, NotePostModel notePostModel);
         Task ChangeColour(int userId, int NoteId, string colour);
         Task ArchiveNote(int userId, int noteId);
+        Task PinNote(int userId, int noteId);
+        Task TrashNote(int userId, int noteId);
         Task<Note> UpdateNote(int userId, int noteId, NoteUpdateModel noteUpdateModel);
         Task DeleteNote(int noteId, int userId);
     }

@@ -35,10 +35,10 @@ namespace BusinessLayer.Services
             {
                 await noteRL.ArchiveNote(userId, noteId);
             }
-            catch (Exception)
+            catch (Exception ex)
             {
 
-                throw;
+                throw ex;
             }
 
         }
@@ -63,12 +63,39 @@ namespace BusinessLayer.Services
             {
                 await noteRL.DeleteNote(noteId, userId);
             }
-            catch (Exception)
+            catch (Exception ex)
             {
 
-                throw;
+                throw ex;
             }
 
+        }
+
+        public async Task PinNote(int userId, int noteId)
+        {
+            try
+            {
+                await noteRL.PinNote(userId, noteId);
+            }
+            catch (Exception ex)
+            {
+
+                throw ex;
+            }
+
+        }
+
+        public async Task TrashNote(int userId, int noteId)
+        {
+            try
+            {
+                await noteRL.TrashNote(userId, noteId);
+            }
+            catch (Exception ex)
+            {
+
+                throw ex;
+            }
         }
 
         public async Task<Note> UpdateNote(int userId, int noteId, NoteUpdateModel noteUpdateModel)
