@@ -178,6 +178,28 @@ namespace FundooNotes.Controllers
                 throw ex;
             }
         }
+        [Authorize]
+        [HttpPut("Remainder/{noteId}/{Reminderdate}")]
+        public async Task<ActionResult> ReminderDate(int noteId,DateTime Reminderdate)
+        {
+            try
+            {
+                var userid = User.Claims.FirstOrDefault(x => x.Type.ToString().Equals("userID", StringComparison.InvariantCultureIgnoreCase));
+                int userId = Int32.Parse(userid.Value);
+
+                var note = fundoosContext.Notes.FirstOrDefault(e => e.userId == userId && e.NoteId == noteId);
+                if (note == null)
+                {
+                    return this.BadRequest(new { success = false, message = "Reminder Date does not set successfully" });
+                }
+                await this.noteBL.Reminder(userId, noteId, Reminderdate);
+                return this.Ok(new { success = true, message = "Reminder date set successfully" });
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
     }
 }      
 

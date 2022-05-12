@@ -22,7 +22,7 @@ namespace FundooNotes.Controllers
             this.fundoosContext = fundoos;
             this.userBL = userBL;
         }
-       
+
         [HttpPost("register")]
 
         public IActionResult AddUser(UserPostModel user)
@@ -31,16 +31,16 @@ namespace FundooNotes.Controllers
             {
                 this.userBL.AddUser(user);
                 return this.Ok(new { success = true, message = $"User Added Successful " });
-
-
-
             }
             catch (Exception ex)
             {
 
                 throw ex;
             }
+
         }
+
+        
         [HttpPost("login/{email}/{password}")]
         public ActionResult LoginUser(string email, string password)
         {

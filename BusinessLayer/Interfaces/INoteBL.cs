@@ -16,6 +16,9 @@ namespace BusinessLayer.Interfaces
         Task TrashNote(int userId, int noteId);
         Task<Note> UpdateNote(int userId, int noteId, NoteUpdateModel noteUpdateModel);
         Task DeleteNote(int noteId, int userId);
+        Task Reminder(int userId, int noteId, DateTime Reminderdate);
+
+
     }
 }
     

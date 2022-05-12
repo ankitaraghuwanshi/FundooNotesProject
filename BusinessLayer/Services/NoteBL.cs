@@ -85,6 +85,20 @@ namespace BusinessLayer.Services
 
         }
 
+        public async Task Reminder(int userId, int noteId, DateTime Reminderdate)
+        {
+
+            try
+            {
+                await noteRL.Reminder(userId, noteId, Reminderdate);
+            }
+            catch (Exception ex)
+            {
+
+                throw ex;
+            }
+        }
+
         public async Task TrashNote(int userId, int noteId)
         {
             try
@@ -110,6 +124,8 @@ namespace BusinessLayer.Services
                 throw ex;
             }
         }
+       
+
     }
-    
+
 }

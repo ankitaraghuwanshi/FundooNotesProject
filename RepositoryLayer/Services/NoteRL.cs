@@ -195,8 +195,50 @@ namespace RepositoryLayer.Services
             }
 
         }
+        public async Task Reminder(int userId, int noteId, DateTime Reminderdate)
+        {
+            try
+            {
+                var note = fundoosContext.Notes.FirstOrDefault(e => e.userId == userId && e.NoteId == noteId);
+                if (note != null)
+                {
+                    if (note.IsRemainder == true)
+                    {
+                        
+                        note.IsRemainder = false;
+                    }
+                    if (note.IsRemainder == false)
+                    {
+                        note.IsRemainder = true;
+                    }
+                    if (note.IsRemainder == true)
+                    {
+                        note.RemainderDate = Reminderdate;
+                    }
+                }
+                await fundoosContext.SaveChangesAsync();
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
     }
-}        
+}
+
+
+        
+
+
+
+    
+
+
+        
+
+    
+    
+      
 
 
 
