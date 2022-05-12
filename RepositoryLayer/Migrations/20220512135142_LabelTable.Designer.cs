@@ -3,46 +3,23 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using RepositoryLayer.FundooContext;
 
 namespace RepositoryLayer.Migrations
 {
     [DbContext(typeof(FundoosContext))]
-    partial class FundoosContextModelSnapshot : ModelSnapshot
+    [Migration("20220512135142_LabelTable")]
+    partial class LabelTable
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
                 .HasAnnotation("Relational:MaxIdentifierLength", 128)
                 .HasAnnotation("ProductVersion", "5.0.11")
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-            modelBuilder.Entity("RepositoryLayer.Entities.Label", b =>
-                {
-                    b.Property<int>("labelId")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<int?>("NoteId")
-                        .HasColumnType("int");
-
-                    b.Property<string>("labelName")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<int?>("userId")
-                        .HasColumnType("int");
-
-                    b.HasKey("labelId");
-
-                    b.HasIndex("NoteId");
-
-                    b.HasIndex("userId");
-
-                    b.ToTable("Label");
-                });
 
             modelBuilder.Entity("RepositoryLayer.Entities.Note", b =>
                 {
@@ -60,7 +37,7 @@ namespace RepositoryLayer.Migrations
                     b.Property<bool>("IsArchieve")
                         .HasColumnType("bit");
 
-                    b.Property<bool>("IsReminder")
+                    b.Property<bool>("IsRemainder")
                         .HasColumnType("bit");
 
                     b.Property<bool>("IsTrash")
@@ -75,7 +52,7 @@ namespace RepositoryLayer.Migrations
                     b.Property<DateTime>("RegisterDate")
                         .HasColumnType("datetime2");
 
-                    b.Property<DateTime>("ReminderDate")
+                    b.Property<DateTime>("RemainderDate")
                         .HasColumnType("datetime2");
 
                     b.Property<string>("Title")
@@ -122,42 +99,15 @@ namespace RepositoryLayer.Migrations
                     b.ToTable("User");
                 });
 
-            modelBuilder.Entity("RepositoryLayer.Entities.Label", b =>
-                {
-                    b.HasOne("RepositoryLayer.Entities.Note", "Note")
-                        .WithMany("Labels")
-                        .HasForeignKey("NoteId");
-
-                    b.HasOne("RepositoryLayer.Entities.User", "User")
-                        .WithMany("Labels")
-                        .HasForeignKey("userId");
-
-                    b.Navigation("Note");
-
-                    b.Navigation("User");
-                });
-
             modelBuilder.Entity("RepositoryLayer.Entities.Note", b =>
                 {
                     b.HasOne("RepositoryLayer.Entities.User", "User")
-                        .WithMany("Notes")
+                        .WithMany()
                         .HasForeignKey("userId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.Navigation("User");
-                });
-
-            modelBuilder.Entity("RepositoryLayer.Entities.Note", b =>
-                {
-                    b.Navigation("Labels");
-                });
-
-            modelBuilder.Entity("RepositoryLayer.Entities.User", b =>
-                {
-                    b.Navigation("Labels");
-
-                    b.Navigation("Notes");
                 });
 #pragma warning restore 612, 618
         }

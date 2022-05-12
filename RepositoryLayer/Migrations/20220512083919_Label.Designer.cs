@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using RepositoryLayer.FundooContext;
 
 namespace RepositoryLayer.Migrations
 {
     [DbContext(typeof(FundoosContext))]
-    partial class FundoosContextModelSnapshot : ModelSnapshot
+    [Migration("20220512083919_Label")]
+    partial class Label
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -60,7 +62,7 @@ namespace RepositoryLayer.Migrations
                     b.Property<bool>("IsArchieve")
                         .HasColumnType("bit");
 
-                    b.Property<bool>("IsReminder")
+                    b.Property<bool>("IsRemainder")
                         .HasColumnType("bit");
 
                     b.Property<bool>("IsTrash")
@@ -75,7 +77,7 @@ namespace RepositoryLayer.Migrations
                     b.Property<DateTime>("RegisterDate")
                         .HasColumnType("datetime2");
 
-                    b.Property<DateTime>("ReminderDate")
+                    b.Property<DateTime>("RemainderDate")
                         .HasColumnType("datetime2");
 
                     b.Property<string>("Title")

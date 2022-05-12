@@ -17,7 +17,7 @@ namespace CommonLayer
         public string Colour { get; set; }
         public bool Ispin { get; set; }
         public bool IsArchieve { get; set; }
-        public bool IsRemainder { get; set; }
+        public bool IsReminder { get; set; }
         public bool IsTrash { get; set; }
 
 

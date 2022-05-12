@@ -33,7 +33,7 @@ namespace RepositoryLayer.Services
                 note.Colour = notePostModel.Colour;
                 note.Ispin = false;
                 note.IsArchieve = false;
-                note.IsRemainder = false;
+                note.IsReminder = false;
                 note.RegisterDate = DateTime.Now;
                 note.ModifyDate = DateTime.Now;
                 fundoosContext.Add(note);
@@ -106,7 +106,7 @@ namespace RepositoryLayer.Services
                     note.Colour = noteUpdateModel.Colour;
                     note.Ispin = noteUpdateModel.Ispin;
                     note.IsTrash = noteUpdateModel.IsTrash;
-                    note.IsRemainder = noteUpdateModel.IsRemainder;
+                    note.IsReminder = noteUpdateModel.IsReminder;
 
                     await fundoosContext.SaveChangesAsync();
 
@@ -116,10 +116,10 @@ namespace RepositoryLayer.Services
                 .Include(u => u.User)
                 .FirstOrDefaultAsync();
             }
-            catch (Exception)
+            catch (Exception ex)
             {
 
-                throw;
+                throw ex;
             }
         }
 
@@ -202,19 +202,11 @@ namespace RepositoryLayer.Services
                 var note = fundoosContext.Notes.FirstOrDefault(e => e.userId == userId && e.NoteId == noteId);
                 if (note != null)
                 {
-                    if (note.IsRemainder == true)
+                    if (note.IsReminder == true)
                     {
+                        note.ReminderDate = Reminderdate;
+                    }
 
-                        note.IsRemainder = false;
-                    }
-                    if (note.IsRemainder == false)
-                    {
-                        note.IsRemainder = true;
-                    }
-                    if (note.IsRemainder == true)
-                    {
-                        note.RemainderDate = Reminderdate;
-                    }
                 }
                 await fundoosContext.SaveChangesAsync();
             }
@@ -235,8 +227,24 @@ namespace RepositoryLayer.Services
                 throw ex;
             }
         }
+
+        public async Task<Note> GetNote(int noteId, int userId)
+        {
+            try
+            {
+                var note = fundoosContext.User.FirstOrDefault(u => u.userId == userId);
+                return await fundoosContext.Notes.Where(u => u.NoteId == noteId && u.userId == userId)
+               .Include(u => u.User).FirstOrDefaultAsync();
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
     }
+   
 }
+
         
     
 

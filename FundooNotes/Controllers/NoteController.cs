@@ -22,6 +22,7 @@ namespace FundooNotes.Controllers
             this.fundoosContext = fundoosContext;
             this.noteBL = noteBL;
         }
+        
         [Authorize]
         [HttpPost]
         public async Task<ActionResult> AddNote(NotePostModel notePostModel)
@@ -181,7 +182,7 @@ namespace FundooNotes.Controllers
             }
         }
         [Authorize]
-        [HttpPut("Remainder/{noteId}/{Reminderdate}")]
+        [HttpPut("Reminder/{noteId}/{Reminderdate}")]
         public async Task<ActionResult> ReminderDate(int noteId,DateTime Reminderdate)
         {
             try
@@ -202,6 +203,7 @@ namespace FundooNotes.Controllers
                 throw ex;
             }
         }
+         
         [Authorize]
         [HttpGet("GetAllNotes")]
         public async Task<ActionResult> GetAllNotes()
@@ -213,6 +215,21 @@ namespace FundooNotes.Controllers
                 List<Note> result = new List<Note>();
                 result = await this.noteBL.GetAllNote(userId);
                 return this.Ok(new { success = true, message = $"here is your all notes", data = result });
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+
+        [Authorize]
+        [HttpGet("{noteId}")]
+        public async Task<ActionResult> GetNote(int noteId, int userId)
+        {
+            try
+            {
+                await this.noteBL.GetNote(noteId, userId);
+                return this.Ok(new { success = true, message = "here is the detail of note " });
             }
             catch (Exception ex)
             {

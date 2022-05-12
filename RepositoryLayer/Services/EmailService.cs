@@ -15,11 +15,11 @@ namespace RepositoryLayer.Services
                 client.EnableSsl = true;
                 client.DeliveryMethod = SmtpDeliveryMethod.Network;
                 client.UseDefaultCredentials = true;
-                client.Credentials = new NetworkCredential("testaanki@gmail.com", "palkumakr89$");
+                client.Credentials = new NetworkCredential("aankitest241@gmail.com", "palkumakr89$");
 
                 MailMessage msgObj = new MailMessage();
                 msgObj.To.Add(email);
-                msgObj.From = new MailAddress("testaanki@gmail.com");
+                msgObj.From = new MailAddress("aankitest241@gmail.com");
                 msgObj.Subject = "Password Reset Link";
                 msgObj.IsBodyHtml = true;
                 msgObj.Body = $"<!DOCTYPE html>"
