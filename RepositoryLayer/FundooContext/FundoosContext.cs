@@ -14,7 +14,7 @@ namespace RepositoryLayer.FundooContext
         }
         public DbSet<User> User { get; set; }
         public DbSet<Note> Notes { get; set; }
-       // public DbSet<Label> Labels { get; set; }
+        public DbSet<Label> Label { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {

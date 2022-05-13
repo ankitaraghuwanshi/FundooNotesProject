@@ -220,27 +220,15 @@ namespace RepositoryLayer.Services
         {
             try
             {
-                return await fundoosContext.Notes.Where(u => u.userId == userId).Include(u => u.User).ToListAsync();
+                return await fundoosContext.Notes.Where(u => u.userId == userId).Include(u => u.User).Include(l => l.Labels).ToListAsync();
             }
             catch (Exception ex)
             {
                 throw ex;
             }
         }
-
-        public async Task<Note> GetNote(int noteId, int userId)
-        {
-            try
-            {
-                var note = fundoosContext.User.FirstOrDefault(u => u.userId == userId);
-                return await fundoosContext.Notes.Where(u => u.NoteId == noteId && u.userId == userId)
-               .Include(u => u.User).FirstOrDefaultAsync();
-            }
-            catch (Exception ex)
-            {
-                throw ex;
-            }
-        }
+        
+       
     }
    
 }

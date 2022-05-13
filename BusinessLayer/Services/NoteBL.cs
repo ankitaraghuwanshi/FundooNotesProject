@@ -82,20 +82,6 @@ namespace BusinessLayer.Services
                 throw ex;
             }
         }
-        
-        public async Task<Note> GetNote(int noteId, int userId)
-        {
-            try
-            {
-                return await noteRL.GetNote(noteId, userId);
-            }
-            catch (Exception ex)
-            {
-
-                throw ex;
-            }
-        }
-
         public async Task PinNote(int userId, int noteId)
         {
             try

@@ -222,20 +222,7 @@ namespace FundooNotes.Controllers
             }
         }
 
-        [Authorize]
-        [HttpGet("{noteId}")]
-        public async Task<ActionResult> GetNote(int noteId, int userId)
-        {
-            try
-            {
-                await this.noteBL.GetNote(noteId, userId);
-                return this.Ok(new { success = true, message = "here is the detail of note " });
-            }
-            catch (Exception ex)
-            {
-                throw ex;
-            }
-        }
+        
     }
 }      
 
