@@ -94,9 +94,25 @@ namespace FundooNotes.Controllers
                 var result = await this.labelBL.UpdateLabel(userId, labelId, labelName);
                 if (result == null)
                 {
-                    return this.BadRequest(new { success = true, message = "Updation of Label failed" });
+                    return this.BadRequest(new { success = true, message = "Updation of Label is failed" });
                 }
                 return this.Ok(new { success = true, message = $"Label updated successfully"});
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+        [Authorize]
+        [HttpDelete("DeleteLabel/{labelId}")]
+        public async Task<ActionResult> DeleteLabel(int labelId)
+        {
+            try
+            {
+                var userid = User.Claims.FirstOrDefault(x => x.Type.ToString().Equals("userId", StringComparison.InvariantCultureIgnoreCase));
+                int userId = Int32.Parse(userid.Value);
+                await this.labelBL.DeleteLabel(labelId, userId);
+                return this.Ok(new { success = true, message = $"Label Deleted successfully" });
             }
             catch (Exception ex)
             {

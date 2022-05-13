@@ -10,7 +10,7 @@ using RepositoryLayer.FundooContext;
 namespace RepositoryLayer.Migrations
 {
     [DbContext(typeof(FundoosContext))]
-    [Migration("20220511134340_userdata")]
+    [Migration("20220513162839_userdata")]
     partial class userdata
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -20,6 +20,31 @@ namespace RepositoryLayer.Migrations
                 .HasAnnotation("Relational:MaxIdentifierLength", 128)
                 .HasAnnotation("ProductVersion", "5.0.11")
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+            modelBuilder.Entity("RepositoryLayer.Entities.Label", b =>
+                {
+                    b.Property<int>("labelId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<int?>("NoteId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("labelName")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int?>("userId")
+                        .HasColumnType("int");
+
+                    b.HasKey("labelId");
+
+                    b.HasIndex("NoteId");
+
+                    b.HasIndex("userId");
+
+                    b.ToTable("Label");
+                });
 
             modelBuilder.Entity("RepositoryLayer.Entities.Note", b =>
                 {
@@ -37,7 +62,7 @@ namespace RepositoryLayer.Migrations
                     b.Property<bool>("IsArchieve")
                         .HasColumnType("bit");
 
-                    b.Property<bool>("IsRemainder")
+                    b.Property<bool>("IsReminder")
                         .HasColumnType("bit");
 
                     b.Property<bool>("IsTrash")
@@ -52,7 +77,7 @@ namespace RepositoryLayer.Migrations
                     b.Property<DateTime>("RegisterDate")
                         .HasColumnType("datetime2");
 
-                    b.Property<DateTime>("RemainderDate")
+                    b.Property<DateTime>("ReminderDate")
                         .HasColumnType("datetime2");
 
                     b.Property<string>("Title")
@@ -99,15 +124,42 @@ namespace RepositoryLayer.Migrations
                     b.ToTable("User");
                 });
 
+            modelBuilder.Entity("RepositoryLayer.Entities.Label", b =>
+                {
+                    b.HasOne("RepositoryLayer.Entities.Note", "Note")
+                        .WithMany("Labels")
+                        .HasForeignKey("NoteId");
+
+                    b.HasOne("RepositoryLayer.Entities.User", "User")
+                        .WithMany("Labels")
+                        .HasForeignKey("userId");
+
+                    b.Navigation("Note");
+
+                    b.Navigation("User");
+                });
+
             modelBuilder.Entity("RepositoryLayer.Entities.Note", b =>
                 {
                     b.HasOne("RepositoryLayer.Entities.User", "User")
-                        .WithMany()
+                        .WithMany("Notes")
                         .HasForeignKey("userId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.Navigation("User");
+                });
+
+            modelBuilder.Entity("RepositoryLayer.Entities.Note", b =>
+                {
+                    b.Navigation("Labels");
+                });
+
+            modelBuilder.Entity("RepositoryLayer.Entities.User", b =>
+                {
+                    b.Navigation("Labels");
+
+                    b.Navigation("Notes");
                 });
 #pragma warning restore 612, 618
         }

@@ -10,8 +10,8 @@ using RepositoryLayer.FundooContext;
 namespace RepositoryLayer.Migrations
 {
     [DbContext(typeof(FundoosContext))]
-    [Migration("20220512180122_Labeldata")]
-    partial class Labeldata
+    [Migration("20220513162937_Note")]
+    partial class Note
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {

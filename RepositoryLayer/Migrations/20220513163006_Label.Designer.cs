@@ -10,7 +10,7 @@ using RepositoryLayer.FundooContext;
 namespace RepositoryLayer.Migrations
 {
     [DbContext(typeof(FundoosContext))]
-    [Migration("20220512083919_Label")]
+    [Migration("20220513163006_Label")]
     partial class Label
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -62,7 +62,7 @@ namespace RepositoryLayer.Migrations
                     b.Property<bool>("IsArchieve")
                         .HasColumnType("bit");
 
-                    b.Property<bool>("IsRemainder")
+                    b.Property<bool>("IsReminder")
                         .HasColumnType("bit");
 
                     b.Property<bool>("IsTrash")
@@ -77,7 +77,7 @@ namespace RepositoryLayer.Migrations
                     b.Property<DateTime>("RegisterDate")
                         .HasColumnType("datetime2");
 
-                    b.Property<DateTime>("RemainderDate")
+                    b.Property<DateTime>("ReminderDate")
                         .HasColumnType("datetime2");
 
                     b.Property<string>("Title")

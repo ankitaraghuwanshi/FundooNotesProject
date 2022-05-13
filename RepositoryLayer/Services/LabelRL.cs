@@ -90,6 +90,20 @@ namespace RepositoryLayer.Services
                 throw ex;
             }
         }
+
+        public async Task DeleteLabel(int labelId, int userId)
+        {
+            try
+            {
+                var result = fundoosContext.Label.FirstOrDefault(u => u.labelId == labelId && u.userId == userId);
+                fundoosContext.Label.Remove(result);
+                await fundoosContext.SaveChangesAsync();
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
     }
 }
         
