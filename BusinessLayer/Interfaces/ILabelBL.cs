@@ -11,5 +11,6 @@ namespace BusinessLayer.Interfaces
         Task AddLabel(int userId, int noteId, string labelName);
         Task<List<Label>> GetLabelByuserId(int userId);
         Task<List<Label>> GetLabelByNoteId(int noteId);
+        Task<Label> UpdateLabel(int userId, int labelId, string labelName);
     }
 }

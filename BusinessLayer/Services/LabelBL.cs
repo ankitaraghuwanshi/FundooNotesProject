@@ -51,5 +51,18 @@ namespace BusinessLayer.Services
                 throw ex;
             }
         }
+
+        public async Task<Label> UpdateLabel(int userId, int labelId, string labelName)
+        {
+            try
+            {
+                return await this.labelRL.UpdateLabel(userId, labelId, labelName);
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+
+        }
     }
 }
