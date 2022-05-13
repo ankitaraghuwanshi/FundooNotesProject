@@ -12,7 +12,7 @@ namespace RepositoryLayer.Interfaces
         Task AddLabel(int userId, int noteId, string labelName);
         Task<List<Label>> GetLabelByuserId(int userId);
         Task<List<Label>> GetlabelByNoteId(int NoteId);
-        Task<Label> UpdateLabel(int userId, int labelId, string labelName);
+        Task<Label> UpdateLabel(int labelId, int userId, string labelName);
         Task DeleteLabel(int labelId, int userId);
     }
 }

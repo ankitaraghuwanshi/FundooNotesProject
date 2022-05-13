@@ -66,7 +66,7 @@ namespace RepositoryLayer.Services
 
         }
 
-        public async Task<Label> UpdateLabel(int userId, int labelId, string labelName)
+        public async Task<Label> UpdateLabel( int labelId, int userId, string labelName)
         {
             try
             {

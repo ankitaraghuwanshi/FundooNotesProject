@@ -51,7 +51,7 @@ namespace FundooNotes.Controllers
                 res = await this.labelBL.GetLabelByuserId(userId);
                 if (res == null)
                 {
-                    return this.BadRequest(new { success = false, message = "unable to get label" });
+                    return this.BadRequest(new { success = false, message = "Soory!! this LabelID doesnt Exits ..." });
                 }
                 return this.Ok(new { success = true, message = $"get Label information successfully", data = res });
             }
@@ -72,7 +72,7 @@ namespace FundooNotes.Controllers
                 res = await this.labelBL.GetLabelByNoteId(NoteId);
                 if (res == null)
                 {
-                    return this.BadRequest(new { success = true, message = "Unable to get label" });
+                    return this.BadRequest(new { success = true, message = "Soory!! this LabelID doesnt Exits <Please> create it" });
                 }
                 return this.Ok(new { success = true, message = $"here is the Label information", data = res });
             }
@@ -84,7 +84,7 @@ namespace FundooNotes.Controllers
 
         [Authorize]
         [HttpPut("UpdateLabel/{labelId}/{labelName}")]
-        public async Task<ActionResult> UpdateLabel(string labelName, int labelId)
+        public async Task<ActionResult> UpdateLabel(int labelId,string labelName)
         {
             try
             {
@@ -94,7 +94,7 @@ namespace FundooNotes.Controllers
                 var result = await this.labelBL.UpdateLabel(userId, labelId, labelName);
                 if (result == null)
                 {
-                    return this.BadRequest(new { success = true, message = "Updation of Label is failed" });
+                    return this.BadRequest(new { success = true, message = "Soory!! this LabelID doesnt Exits <Please> create it" });
                 }
                 return this.Ok(new { success = true, message = $"Label updated successfully"});
             }
