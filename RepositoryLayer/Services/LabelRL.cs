@@ -29,7 +29,8 @@ namespace RepositoryLayer.Services
                 label.labelName = labelName;
                 label.userId = userId;
                 label.NoteId = noteId;
-                fundoosContext.Add(label);
+                this.fundoosContext.Label.Add(label);
+
                 await fundoosContext.SaveChangesAsync();
             }
             catch (Exception ex)
@@ -43,7 +44,7 @@ namespace RepositoryLayer.Services
         {
             try
             {
-                List<Label> reuslt = await fundoosContext.Label.Where(u => u.userId == userId).ToListAsync();
+                List<Label> reuslt = await fundoosContext.Label.Where(u => u.userId == userId).Include(u => u.User).Include(u => u.Note).ToListAsync();
                 return reuslt;
             }
             catch (Exception ex)
@@ -79,6 +80,7 @@ namespace RepositoryLayer.Services
                     var result = fundoosContext.Label.Where(u => u.labelId == labelId).FirstOrDefaultAsync();
                     return reuslt;
                 }
+
                 else
                 {
                     return null;

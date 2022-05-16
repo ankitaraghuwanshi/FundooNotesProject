@@ -6,16 +6,14 @@ using System.Text;
 namespace CommonLayer
 {
     public class NotePostModel
-    {   [Required]
-       
+    {  
+        [Required]
         public string Title { get; set; }
 
         [Required]
-       
         public string Description { get; set; }
 
         [Required]
-       
         public string Colour { get; set; }
         
        

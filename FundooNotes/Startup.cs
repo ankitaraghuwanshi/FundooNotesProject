@@ -37,10 +37,14 @@ namespace FundooNotes
         {
             services.AddControllers();
 
+            services.AddMemoryCache();
+           
+
             services.AddControllers().AddNewtonsoftJson(options =>
             options.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore);
-
-            services.AddDbContext<FundoosContext>(opts => opts.UseSqlServer(Configuration["ConnectionStrings:FundooNotes"]));
+          
+        
+        services.AddDbContext<FundoosContext>(opts => opts.UseSqlServer(Configuration["ConnectionStrings:FundooNotes"]));
             services.AddTransient<IUserBL, UserBL>();
             services.AddTransient<IUserRL, UserRL>();
 
@@ -77,6 +81,12 @@ namespace FundooNotes
                 });
 
             });
+            services.AddDistributedRedisCache(
+                 options =>
+                 {
+                     options.Configuration = "Localhost:6379";
+                 }
+                 );
             services.AddAuthentication(x =>
             {
                 x.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
@@ -94,6 +104,7 @@ namespace FundooNotes
 
                 };
             });
+           
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

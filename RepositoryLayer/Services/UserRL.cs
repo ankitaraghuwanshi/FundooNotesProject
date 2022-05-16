@@ -223,6 +223,17 @@ namespace RepositoryLayer.Services
             }
         }
 
-       
+        public List<User> GetAllUser()
+        {
+            try
+            {
+                var result = fundoosContext.User.ToList();
+                return result;
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
     }
 }

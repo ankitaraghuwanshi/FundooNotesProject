@@ -16,8 +16,8 @@ namespace RepositoryLayer.Entities
         public string email { get; set; }
         public string password { get; set; }
         public DateTime registeredDate { get; set; }
-        public virtual IList<Note> Notes {get; set; }
-        public virtual IList<Label> Labels { get; set; }
+       // public virtual IList<Note> Notes {get; set; }
+       // public virtual IList<Label> Labels { get; set; }
 
 
     }

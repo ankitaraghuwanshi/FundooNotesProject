@@ -51,7 +51,7 @@ namespace FundooNotes.Controllers
                 res = await this.labelBL.GetLabelByuserId(userId);
                 if (res == null)
                 {
-                    return this.BadRequest(new { success = false, message = "Soory!! this LabelID doesnt Exits ..." });
+                    return this.BadRequest(new { success = false, message = "Soory!! this LabelID doesnt Exits " });
                 }
                 return this.Ok(new { success = true, message = $"get Label information successfully", data = res });
             }
@@ -103,6 +103,7 @@ namespace FundooNotes.Controllers
                 throw ex;
             }
         }
+       
         [Authorize]
         [HttpDelete("DeleteLabel/{labelId}")]
         public async Task<ActionResult> DeleteLabel(int labelId)

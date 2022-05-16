@@ -220,7 +220,7 @@ namespace RepositoryLayer.Services
         {
             try
             {
-                return await fundoosContext.Notes.Where(u => u.userId == userId).Include(u => u.User).Include(l => l.Labels).ToListAsync();
+                return await fundoosContext.Notes.Where(u => u.userId == userId).Include(u => u.User).ToListAsync();
             }
             catch (Exception ex)
             {

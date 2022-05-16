@@ -23,6 +23,6 @@ namespace RepositoryLayer.Entities
         public DateTime ReminderDate { get; set; }
         public int userId { get; set; }
         public virtual User User { get; set; }
-        public virtual IList<Label> Labels { get; set; }
+       // /public virtual IList<Label> Labels { get; set; }
     }
 }
